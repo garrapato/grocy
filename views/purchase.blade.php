@@ -11,36 +11,25 @@
 @section('content')
 <div class="row">
 	<div class="col-xs-12 col-md-6 col-xl-4 pb-3">
-		<div class="title-related-links">
-			<h2 class="title">@yield('title')</h2>
-			<div class="related-links">
-				@if(!$embedded)
-				<button id="scan-mode-button" class="btn @if(boolval($userSettings['scan_mode_purchase_enabled'])) btn-success @else btn-danger @endif" type="checkbox">{{ $__t('Scan mode') }} <span id="scan-mode-status">@if(boolval($userSettings['scan_mode_purchase_enabled'])) {{ $__t('on') }} @else {{ $__t('off') }} @endif</span></button>
-				<input id="scan-mode" type="checkbox" class="d-none user-setting-control" data-setting-key="scan_mode_purchase_enabled" @if(boolval($userSettings['scan_mode_purchase_enabled'])) checked @endif>
-				@else
-				<script>
-					Grocy.UserSettings.scan_mode_purchase_enabled = false;
-				</script>
-				@endif
-			</div>
-		</div>
-		<hr>
+		<h1>
+			@yield('title')
+			@if(!$embedded)
+			<button id="scan-mode-button" class="btn @if(boolval($userSettings['scan_mode_purchase_enabled'])) btn-success @else btn-danger @endif" type="checkbox">{{ $__t('Scan mode') }} <span id="scan-mode-status">@if(boolval($userSettings['scan_mode_purchase_enabled'])) {{ $__t('on') }} @else {{ $__t('off') }} @endif</span></button>
+			<input id="scan-mode" type="checkbox" class="d-none user-setting-control" data-setting-key="scan_mode_purchase_enabled" @if(boolval($userSettings['scan_mode_purchase_enabled'])) checked @endif>
+			@else
+			<script>
+				Grocy.UserSettings.scan_mode_purchase_enabled = false;
+			</script>
+			@endif
+		</h1>
 
 		<form id="purchase-form" novalidate>
 
 			@include('components.productpicker', array(
 				'products' => $products,
-				'nextInputSelector' => '#amount'
+				'nextInputSelector' => '#best_before_date .datetimepicker-input'
 			))
 
-			@include('components.numberpicker', array(
-				'id' => 'amount',
-				'label' => 'Amount',
-				'hintId' => 'amount_qu_unit',
-				'min' => 1,
-				'invalidFeedback' => $__t('The amount cannot be lower than %s', '1'),
-				'additionalHtmlContextHelp' => '<div id="tare-weight-handling-info" class="text-info font-italic d-none">' . $__t('Tare weight handling enabled - please weigh the whole container, the amount to be posted will be automatically calculcated') . '</div>'
-			))
 
 			@php
 				$additionalGroupCssClasses = '';
@@ -57,7 +46,7 @@
 				'limitEndToNow' => false,
 				'limitStartToNow' => false,
 				'invalidFeedback' => $__t('A best before date is required'),
-				'nextInputSelector' => '#price',
+				'nextInputSelector' => '#amount',
 				'additionalCssClasses' => 'date-only-datetimepicker',
 				'shortcutValue' => '2999-12-31',
 				'shortcutLabel' => 'Never expires',
@@ -68,6 +57,15 @@
 			))
 			@php $additionalGroupCssClasses = ''; @endphp
 
+			@include('components.numberpicker', array(
+				'id' => 'amount',
+				'label' => 'Amount',
+				'hintId' => 'amount_qu_unit',
+				'min' => 1,
+				'invalidFeedback' => $__t('The amount cannot be lower than %s', '1'),
+				'additionalHtmlContextHelp' => '<div id="tare-weight-handling-info" class="text-info font-italic d-none">' . $__t('Tare weight handling enabled - please weigh the whole container, the amount to be posted will be automatically calculcated') . '</div>'
+			))
+
 			@if(GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING)
 			@include('components.numberpicker', array(
 				'id' => 'price',
@@ -75,14 +73,14 @@
 				'min' => 0,
 				'step' => 0.01,
 				'value' => '',
-				'hintId' => 'price-hint',
+				'hint' => $__t('in %s and based on the purchase quantity unit', GROCY_CURRENCY),
 				'invalidFeedback' => $__t('The price cannot be lower than %s', '0'),
 				'isRequired' => false,
 				'additionalGroupCssClasses' => 'mb-1'
 			))
 			<div class="form-check form-check-inline mb-3">
 				<input class="form-check-input" type="radio" name="price-type" id="price-type-unit-price" value="unit-price" checked>
-				<label class="form-check-label" for="price-type-unit-price">{{ $__t('Price') }}</label>
+				<label class="form-check-label" for="price-type-unit-price">{{ $__t('Unit price') }}</label>
 			</div>
 			<div class="form-check form-check-inline mb-3">
 				<input class="form-check-input" type="radio" name="price-type" id="price-type-total-price" value="total-price">

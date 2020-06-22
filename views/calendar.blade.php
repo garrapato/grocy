@@ -16,17 +16,14 @@
 @section('content')
 <div class="row">
 	<div class="col">
-		<div class="title-related-links">
-			<h2 class="title">@yield('title')</h2>
-			<div class="related-links">
-				<a id="ical-button" class="btn btn-outline-dark" href="#">
-					{{ $__t('Share/Integrate calendar (iCal)') }}
-				</a>
-			</div>
-		</div>
+		<h1>
+			@yield('title')
+			<a id="ical-button" class="btn btn-outline-dark" href="#">
+				<i class="fas fa-calendar-plus"></i>&nbsp;{{ $__t('Share/Integrate calendar (iCal)') }}
+			</a>
+		</h1>
 	</div>
 </div>
-<hr>
 
 <script>
 	var fullcalendarEventSources = {!! json_encode(array($fullcalendarEventSources)) !!}

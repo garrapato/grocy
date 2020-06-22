@@ -14,7 +14,7 @@
 @section('content')
 <div class="row">
 	<div class="col">
-		<h2 class="title">@yield('title')</h2> 
+		<h1>@yield('title')</h1> 
 	</div>
 	<div class="col">
 		@include('components.productpicker', array(
@@ -23,7 +23,7 @@
 		))
 	</div>
 </div>
-<hr>
+
 <div class="row">
 	<div class="col">
 		<table id="stockentries-table" class="table table-sm table-striped dt-responsive">

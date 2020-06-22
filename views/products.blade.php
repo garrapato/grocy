@@ -7,49 +7,34 @@
 @section('content')
 <div class="row">
 	<div class="col">
-		<div class="title-related-links">
-			<h2 class="title">@yield('title')</h2>
-			<div class="related-links">
-				<a class="btn btn-outline-secondary mb-1" href="{{ $U('/userfields?entity=products') }}">
-					{{ $__t('Configure userfields') }}
-				</a>
-				<a class="btn btn-outline-secondary mb-1" href="{{ $U('/stocksettings#productpresets') }}">
-					{{ $__t('Presets for new products') }}
-				</a>
-			</div>
-		</div>
-		<hr>
+		<h1>
+			@yield('title')
+			<a class="btn btn-outline-dark" href="{{ $U('/product/new') }}">
+				<i class="fas fa-plus"></i>&nbsp;{{ $__t('Add') }}
+			</a>
+			<a class="btn btn-outline-secondary" href="{{ $U('/userfields?entity=products') }}">
+				<i class="fas fa-sliders-h"></i>&nbsp;{{ $__t('Configure userfields') }}
+			</a>
+			<a class="btn btn-outline-secondary" href="{{ $U('/stocksettings#productpresets') }}">
+				<i class="fas fa-sliders-h"></i>&nbsp;{{ $__t('Presets for new products') }}
+			</a>
+		</h1>
 	</div>
 </div>
 
 <div class="row mt-3">
-	<div class="col-xs-12 col-md-2 col-xl-1">
-		<a class="btn btn-primary btn-sm responsive-button w-100 mb-3" href="{{ $U('/product/new') }}">
-			{{ $__t('Add') }}
-		</a>
-	</div>
-</div>
-<div class="row">
 	<div class="col-xs-12 col-md-6 col-xl-3">
-		<div class="input-group mb-3">
-			<div class="input-group-prepend">
-					<span class="input-group-text"><i class="fas fa-search"></i></span>
-			</div>
-			<input type="text"  id="search" class="form-control" placeholder="{{ $__t('Search') }}">
-		</div>
+		<label for="search">{{ $__t('Search') }}</label> <i class="fas fa-search"></i>
+		<input type="text" class="form-control" id="search">
 	</div>
 	<div class="col-xs-12 col-md-6 col-xl-3">
-		<div class="input-group mb-3">
-			<div class="input-group-prepend">
-					<span class="input-group-text"><i class="fas fa-filter"></i></span>
-			</div>
-			<select class="form-control" id="location-filter">
-				<option value="all">{{ $__t('All') }}</option>
-				@foreach($productGroups as $productGroup)
-					<option value="{{ $productGroup->id }}">{{ $productGroup->name }}</option>
-				@endforeach
-			</select>
-		</div>
+		<label for="location-filter">{{ $__t('Filter by product group') }}</label> <i class="fas fa-filter"></i>
+		<select class="form-control" id="product-group-filter">
+			<option value="all">{{ $__t('All') }}</option>
+			@foreach($productGroups as $productGroup)
+				<option value="{{ $productGroup->id }}">{{ $productGroup->name }}</option>
+			@endforeach
+		</select>
 	</div>
 </div>
 

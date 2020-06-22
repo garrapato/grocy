@@ -454,6 +454,9 @@ msgstr ""
 msgid "Edit recipe"
 msgstr ""
 
+msgid "New recipe"
+msgstr ""
+
 msgid "Ingredients list"
 msgstr ""
 
@@ -734,7 +737,7 @@ msgstr ""
 msgid "When not set, you will get logged out at latest after 30 days"
 msgstr ""
 
-msgid "Status"
+msgid "Filter by status"
 msgstr ""
 
 msgid "Below min. stock amount"
@@ -1427,7 +1430,7 @@ msgstr ""
 msgid "assigned to %s"
 msgstr ""
 
-msgid "Assignment"
+msgid "Filter by assignment"
 msgstr ""
 
 msgid "Consume product on chore execution"
@@ -1785,28 +1788,4 @@ msgid "Delete this item"
 msgstr ""
 
 msgid "Show an icon if the product is already on the shopping list"
-msgstr ""
-
-msgid "Calories"
-msgstr ""
-
-msgid "By default the amount to be added to the shopping list is `needed amount - stock amount - shopping list amount` - when this is enabled, it is only checked against the stock amount, not against what is already on the shopping list"
-msgstr ""
-
-msgid "means %1$s per %2$s"
-msgstr ""
-
-msgid "Create inverse QU conversion"
-msgstr ""
-
-msgid "Create recipe"
-msgstr ""
-
-msgid "Save & continue to add ingredients and included recipes"
-msgstr ""
-
-msgid "Save & continue"
-msgstr ""
-
-msgid "Save & return to recipes"
 msgstr ""

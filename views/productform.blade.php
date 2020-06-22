@@ -21,13 +21,10 @@
 
 @section('content')
 <div class="row">
-	<div class="col">
-		<h2 class="title">@yield('title')</h2>
-		<hr>
-	</div>
-</div>
-<div class="row">
+
 	<div class="col-lg-6 col-xs-12">
+		<h1>@yield('title')</h1>
+
 		<script>Grocy.EditMode = '{{ $mode }}';</script>
 
 		@if($mode == 'edit')
@@ -93,11 +90,9 @@
 			<input type="hidden" name="location_id" id="location_id" value="1">
 			@endif
 
-			@php $prefillById = ''; if($mode=='edit') { $prefillById = $product->shopping_location_id; } @endphp
 			@if(GROCY_FEATURE_FLAG_STOCK_PRICE_TRACKING)
 			@include('components.shoppinglocationpicker', array(
 				'label' => 'Default store',
-				'prefillById' => $prefillById,
 				'shoppinglocations' => $shoppinglocations
 			))
 			@else

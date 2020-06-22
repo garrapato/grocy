@@ -7,32 +7,22 @@
 @section('content')
 <div class="row">
 	<div class="col">
-		<div class="title-related-links">
-			<h2 class="title">@yield('title')</h2>
-			<div class="related-links">
-				<a class="btn btn-outline-secondary" href="{{ $U('/userfields?entity=product_groups') }}">
-					{{ $__t('Configure userfields') }}
-				</a>
-			</div>
-		</div>
+		<h1>
+			@yield('title')
+			<a class="btn btn-outline-dark" href="{{ $U('/productgroup/new') }}">
+				<i class="fas fa-plus"></i>&nbsp;{{ $__t('Add') }}
+			</a>
+			<a class="btn btn-outline-secondary" href="{{ $U('/userfields?entity=product_groups') }}">
+				<i class="fas fa-sliders-h"></i>&nbsp;{{ $__t('Configure userfields') }}
+			</a>
+		</h1>
 	</div>
 </div>
-<hr>
+
 <div class="row mt-3">
-	<div class="col-xs-12 col-md-2 col-xl-1">
-		<a class="btn btn-primary btn-sm responsive-button w-100 mb-3" href="{{ $U('/productgroup/new') }}">
-			{{ $__t('Add') }}
-		</a>
-	</div>
-</div>
-<div class="row">
 	<div class="col-xs-12 col-md-6 col-xl-3">
-		<div class="input-group mb-3">
-			<div class="input-group-prepend">
-					<span class="input-group-text"><i class="fas fa-search"></i></span>
-			</div>
-			<input type="text"  id="search" class="form-control" placeholder="{{ $__t('Search') }}">
-		</div>
+		<label for="search">{{ $__t('Search') }}</label> <i class="fas fa-search"></i>
+		<input type="text" class="form-control" id="search">
 	</div>
 </div>
 

@@ -33,7 +33,7 @@ $("#status-filter").on("change", function()
 	batteriesOverviewTable.column(4).search(value).draw();
 });
 
-$(".status-filter-message").on("click", function()
+$(".status-filter-button").on("click", function()
 {
 	var value = $(this).data("status-filter");
 	$("#status-filter").val(value);

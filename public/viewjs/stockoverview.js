@@ -47,7 +47,7 @@ $("#status-filter").on("change", function()
 	stockOverviewTable.column(5).search(value).draw();
 });
 
-$(".status-filter-message").on("click", function()
+$(".status-filter-button").on("click", function()
 {
 	var value = $(this).data("status-filter");
 	$("#status-filter").val(value);

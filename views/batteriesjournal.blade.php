@@ -7,32 +7,23 @@
 @section('content')
 <div class="row">
 	<div class="col">
-		<h2 class="title">@yield('title')</h2>
+		<h1>@yield('title')</h1>
 	</div>
 </div>
 
-<hr>
 <div class="row my-3">
 	<div class="col-xs-12 col-md-6 col-xl-3">
-		<div class="input-group mb-3">
-			<div class="input-group-prepend">
-					<span class="input-group-text"><i class="fas fa-search"></i></span>
-			</div>
-			<input type="text"  id="search" class="form-control" placeholder="{{ $__t('Search') }}">
-		</div>
+		<label for="search">{{ $__t('Search') }}</label> <i class="fas fa-search"></i>
+		<input type="text" class="form-control" id="search">
 	</div>
 	<div class="col-xs-12 col-md-6 col-xl-3">
-		<div class="input-group mb-3">
-			<div class="input-group-prepend">
-					<span class="input-group-text"><i class="fas fa-filter"></i></span>
-			</div>
-			<select class="form-control" id="battery-filter">
-				<option value="all">{{ $__t('All') }}</option>
+		<label for="battery-filter">{{ $__t('Filter by battery') }}</label> <i class="fas fa-filter"></i>
+		<select class="form-control" id="battery-filter">
+			<option value="all">{{ $__t('All') }}</option>
 			@foreach($batteries as $battery)
 				<option value="{{ $battery->id }}">{{ $battery->name }}</option>
 			@endforeach
-			</select>
-		</div>
+		</select>
 	</div>
 </div>
 

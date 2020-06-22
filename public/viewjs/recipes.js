@@ -1,8 +1,6 @@
 ﻿var recipesTables = $('#recipes-table').DataTable({
-	'order': [[1, 'asc']],
+	'order': [[0, 'asc']],
 	'columnDefs': [
-		{ 'orderable': false, 'targets': 0 },
-		{ 'searchable': false, "targets": 0 },
 		{ 'orderData': 2, 'targets': 1 }
 	],
 	'select': 'single',
@@ -26,13 +24,17 @@ if (typeof recipe !== "undefined")
 	var rowId = "#recipe-row-" + recipe;
 	$(rowId).addClass("selected")
 
-	var cardId = "#RecipeGalleryCard-" + recipe;
-	$(cardId).addClass("border-primary");
+	var cardId = "#recipe-card-" + recipe;
+	$(cardId).addClass("bg-primary").addClass("text-white");
 
 	if ($(window).width() < 768)
 	{
 		// Scroll to recipe card on mobile
 		$("#selectedRecipeCard")[0].scrollIntoView();
+	}
+	else
+	{
+		$(cardId)[0].scrollIntoView();
 	}
 }
 
@@ -57,10 +59,8 @@ $("#search").on("keyup", Delay(function()
 
 	recipesTables.search(value).draw();
 
-	$(".recipe-gallery-item").removeClass("d-none");
-	console.log(	$(".recipe-gallery-item .card-title:not(:contains_case_insensitive(" + value + "))"));
-	
-	$(".recipe-gallery-item .card-title:not(:contains_case_insensitive(" + value + "))").parent().parent().parent().addClass("d-none");
+	$(".recipe-gallery-item-container").removeClass("d-none");
+	$(".recipe-gallery-item-container .card-title:not(:contains_case_insensitive(" + value + "))").parent().parent().parent().parent().addClass("d-none");
 }, 200));
 
 $("#status-filter").on("change", function()
@@ -71,13 +71,15 @@ $("#status-filter").on("change", function()
 		value = "";
 	}
 
-	recipesTables.column(5).search(value).draw();
+	// Transfer CSS classes of selected element to dropdown element (for background)
+	$(this).attr("class", $("#" + $(this).attr("id") + " option[value='" + value + "']").attr("class") + " form-control");
+
+	recipesTables.column(4).search(value).draw();
 });
 
-$(".recipe-delete").on('click', function(e)
+
+$("#selectedRecipeDeleteButton").on('click', function(e)
 {
-	e.preventDefault();
-	
 	var objectName = $(e.currentTarget).attr('data-recipe-name');
 	var objectId = $(e.currentTarget).attr('data-recipe-id');
 
@@ -113,7 +115,7 @@ $(".recipe-delete").on('click', function(e)
 	});
 });
 
-$(document).on('click', '.recipe-shopping-list', function(e)
+$(document).on('click', '.recipe-order-missing-button', function(e)
 {
 	var objectName = $(e.currentTarget).attr('data-recipe-name');
 	var objectId = $(e.currentTarget).attr('data-recipe-id');
@@ -159,7 +161,7 @@ $(document).on('click', '.recipe-shopping-list', function(e)
 	});
 });
 
-$(".recipe-consume").on('click', function(e)
+$("#selectedRecipeConsumeButton").on('click', function(e)
 {
 	var objectName = $(e.currentTarget).attr('data-recipe-name');
 	var objectId = $(e.currentTarget).attr('data-recipe-id');
@@ -221,7 +223,7 @@ $(".recipe-gallery-item").on("click", function(e)
 	window.location.href = U('/recipes?tab=gallery&recipe=' + $(this).data("recipe-id"));
 });
 
-$(".recipe-fullscreen").on('click', function(e)
+$("#selectedRecipeToggleFullscreenButton").on('click', function(e)
 {
 	e.preventDefault();
 
@@ -238,19 +240,6 @@ $(".recipe-fullscreen").on('click', function(e)
 	{
 		window.history.replaceState(null, null, " ");
 	}
-});
-
-$(".recipe-print").on('click', function(e)
-{
-	e.preventDefault();	
-
-	$("#selectedRecipeCard").removeClass("fullscreen");
-	$("body").removeClass("fullscreen-card");
-	$("#selectedRecipeCard .card-header").removeClass("fixed-top");
-	$("#selectedRecipeCard .card-body").removeClass("mt-5");
-
-	window.history.replaceState(null, null, " ");
-	window.print();
 });
 
 $('#servings-scale').keyup(function(event)
